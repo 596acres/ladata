@@ -10,11 +10,12 @@ class Command(BaseCommand):
 
     datasets = {
         # name -> module
+        'parcels': 'parcels',
     }
 
     def handle(self, dataset_name, *args, **options):
         try:
-            load_module = import_module('%s.load' % self.datasets[dataset_name])
+            load_module = import_module('ladata.%s.load' % self.datasets[dataset_name])
             load_module.load()
         except KeyError:
             traceback.print_exc()
