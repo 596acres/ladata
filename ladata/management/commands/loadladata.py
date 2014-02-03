@@ -10,6 +10,7 @@ class Command(BaseCommand):
 
     datasets = {
         # name -> module
+        'localroll': 'localroll',
         'parcels': 'parcels',
     }
 

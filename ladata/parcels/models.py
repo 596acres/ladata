@@ -32,6 +32,8 @@ class Parcel(models.Model):
     shape_area = models.FloatField(null=True, blank=True)
     shape_len = models.FloatField(null=True, blank=True)
     geom = models.MultiPolygonField(null=True, blank=True)
+    local_roll = models.ForeignKey('localroll.LocalRollAEntry', null=True,
+                                   blank=True)
     objects = models.GeoManager()
 
 
