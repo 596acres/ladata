@@ -18,7 +18,7 @@ Where's the data coming from?
 
 * **buildings**: LA County GIS Data Portal: [Countywide Building
   Outlines](http://egis3.lacounty.gov/dataportal/2011/04/28/countywide-building-outlines/)
-* **community plan areas**: TODO document
+* **community plan areas**: [LA Department of City Planning](http://cityplanning.lacity.org/MapGallery/MapGallery_GISdata/ZipFiles/CPA.zip)
 * **council districts**: LA County GIS Data Portal: [LA City Council Districts
   (2012)](http://egis3.lacounty.gov/dataportal/2012/08/07/la-city-council-districts-2012/)
 * **local roll**: [LA County
