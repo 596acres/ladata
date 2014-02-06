@@ -25,6 +25,5 @@ Where's the data coming from?
   Assessor](http://assessor.lacounty.gov/extranet/outsidesales/gisdata.aspx)
 * **parcels**: [LA County
   Assessor](http://assessor.lacounty.gov/extranet/outsidesales/gisdata.aspx)
-costs 
 * **protected areas**: California's Protected Areas Database: [unit
   data](http://www.calands.org/data)
