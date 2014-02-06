@@ -36,6 +36,30 @@ class Parcel(models.Model):
                                    blank=True)
     objects = models.GeoManager()
 
+    def _street_address(self):
+        if not self.local_roll:
+            return None
+        return self.local_roll.street_address
+    street_address = property(_street_address)
+
+    def _city(self):
+        if not self.local_roll:
+            return None
+        return self.local_roll.city
+    city = property(_city)
+
+    def _state(self):
+        if not self.local_roll:
+            return None
+        return self.local_roll.state
+    state = property(_state)
+
+    def _zip_code(self):
+        if not self.local_roll:
+            return None
+        return self.local_roll.zip_code
+    zip_code = property(_zip_code)
+
 
 # Auto-generated `LayerMapping` dictionary for Parcel model
 parcel_mapping = {

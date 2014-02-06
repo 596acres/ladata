@@ -311,3 +311,49 @@ class LocalRollAEntry(models.Model):
 		blank=True,
         help_text='Built SQ FT Main'
     )
+
+    def _format_street_address(self):
+        """
+        Assemble the street address from the constituent parts.
+
+        sa_house_number
+        [sa_fraction]
+        [sa_direction]
+        sa_street_name
+        [sa_unit]
+        """
+        parts = [
+            self.sa_house_number,
+            self.sa_fraction,
+            self.sa_direction,
+            self.sa_street_name,
+            self.sa_unit,
+        ]
+        parts = [str(p).strip() for p in parts]
+        parts = [p for p in parts if p is not None and p != '']
+        return ' '.join(parts)
+    street_address = property(_format_street_address)
+
+    def _format_city(self):
+        """
+        sa_city_and_state (split into city and state)?
+        """
+        try:
+            return self.sa_city_and_state.rsplit(' ', 1)[0]
+        except Exception:
+            return None
+    city = property(_format_city)
+
+    def _format_state(self):
+        try:
+            return self.sa_city_and_state.rsplit(' ', 1)[1]
+        except Exception:
+            return None
+    state = property(_format_state)
+
+    def _format_zip_code(self):
+        try:
+            return self.sa_zip_cde[:5]
+        except Exception:
+            return None
+    zip_code = property(_format_zip_code)
