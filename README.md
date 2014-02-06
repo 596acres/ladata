@@ -16,5 +16,15 @@ Los Angeles.
 Where's the data coming from?
 -----------------------------
 
-Check the `Makefile` for the specifics. Where the data is coming from elsewhere,
-check the `README` in the data's directory for more information.
+* **buildings**: LA County GIS Data Portal: [Countywide Building
+  Outlines](http://egis3.lacounty.gov/dataportal/2011/04/28/countywide-building-outlines/)
+* **community plan areas**: TODO document
+* **council districts**: LA County GIS Data Portal: [LA City Council Districts
+  (2012)](http://egis3.lacounty.gov/dataportal/2012/08/07/la-city-council-districts-2012/)
+* **local roll**: [LA County
+  Assessor](http://assessor.lacounty.gov/extranet/outsidesales/gisdata.aspx)
+* **parcels**: [LA County
+  Assessor](http://assessor.lacounty.gov/extranet/outsidesales/gisdata.aspx)
+costs 
+* **protected areas**: California's Protected Areas Database: [unit
+  data](http://www.calands.org/data)
