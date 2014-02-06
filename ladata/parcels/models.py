@@ -39,7 +39,10 @@ class Parcel(models.Model):
     def _street_address(self):
         if not self.local_roll:
             return None
-        return self.local_roll.street_address
+        street_address = self.local_roll.street_address
+        if street_address == '0':
+            street_address = None
+        return street_address
     street_address = property(_street_address)
 
     def _city(self):
