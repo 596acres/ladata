@@ -10,8 +10,10 @@ class Command(BaseCommand):
 
     datasets = {
         # name -> module
+        'buildings': 'buildings',
         'localroll': 'localroll',
         'parcels': 'parcels',
+        'protectedareas': 'protectedareas',
     }
 
     def handle(self, dataset_name, *args, **options):
