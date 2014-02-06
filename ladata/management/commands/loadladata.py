@@ -11,6 +11,7 @@ class Command(BaseCommand):
     datasets = {
         # name -> module
         'buildings': 'buildings',
+        'councildistricts': 'councildistricts',
         'localroll': 'localroll',
         'parcels': 'parcels',
         'protectedareas': 'protectedareas',
