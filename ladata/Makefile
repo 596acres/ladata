@@ -5,7 +5,6 @@ clean: clean_processed clean_raw
 
 prepare_processed:
 	mkdir -p processed
-	# mkdir -p processed/<module>
 
 clean_processed:
 	# rm -rf processed/<module>
@@ -45,10 +44,15 @@ clip_buildings_to_council_districts:
 
 process_parcels: prepare_processed
 	mkdir -p processed/parcels
-	ogr2ogr -simplify 0.2 -t_srs EPSG:4326 -overwrite processed/parcels/parcels.shp raw/parcels/Parcels.shp
+	ogr2ogr -simplify 0.2 -t_srs EPSG:4326 -overwrite processed/parcels/parcels.shp raw/parcels/parcels.shp
 
 clip_parcels_to_council_districts:
 	mkdir -p processed/parcels/split
 	ogrinfo -ro -al -geom=NO -fields=YES -sql "SELECT DISTRICT FROM councildistricts" -q processed/councildistricts/councildistricts.shp | \
 		sed '/^\$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
 		xargs -I{} ogr2ogr -overwrite -clipsrc processed/councildistricts/split/council_district_{}.shp processed/parcels/split/council_district_{}.shp processed/parcels/parcels.shp
+
+
+process_localroll: prepare_processed
+	mkdir -p processed/localroll
+	mdb-export raw/localroll/LocalRollA.mdb LocalRollA > processed/localroll/LocalRollA.csv
