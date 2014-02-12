@@ -56,3 +56,9 @@ clip_parcels_to_council_districts:
 process_localroll: prepare_processed
 	mkdir -p processed/localroll
 	mdb-export raw/localroll/LocalRollA.mdb LocalRollA > processed/localroll/LocalRollA.csv
+
+
+process_protectedareas: prepare_processed
+	mkdir -p processed/protectedareas
+	ogr2ogr -simplify 0.2 -t_srs EPSG:4326 -overwrite processed/protectedareas/protectedareas.shp raw/protectedareas/CPAD_2013b_Units.shp
+	ogr2ogr -overwrite -clipsrc processed/cityboundary/cityboundary.shp processed/protectedareas/protectedareas_clipped.shp processed/protectedareas/protectedareas.shp

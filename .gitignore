@@ -1,9 +1,3 @@
-noladata/processed/addresses
-noladata/processed/boundary
-noladata/processed/buildings
-noladata/processed/nora
-noladata/processed/parcels
-noladata/processed/zipcodes
 raw
 .*.swp
 *.pyc

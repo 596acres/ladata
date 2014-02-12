@@ -12,7 +12,7 @@ def from_shapefile(strict=False, progress=True, verbose=False,
     Load protected area data into the database from the processed shapefile.
     """
     shp = get_processed_data_file(os.path.join('protectedareas',
-                                               'CPAD_2013b_Units_LA_County_WGS84.shp'))
+                                               'protectedareas_clipped.shp'))
     mapping = LayerMapping(ProtectedArea, shp, protectedarea_mapping,
                            transform=True, transaction_mode=transaction_mode)
     mapping.save(strict=strict, progress=progress, verbose=verbose, **kwargs)
