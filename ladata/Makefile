@@ -48,6 +48,10 @@ clip_buildings_to_council_districts:
 		sed '/^\$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
 		xargs -I{} ogr2ogr -overwrite -clipsrc processed/councildistricts/split/council_district_{}.shp processed/buildings/split/council_district_{}.shp processed/buildings/buildings.shp
 
+push_buildings:
+	tar czvf processed/buildings/buildings_split.tar.gz processed/buildings/split/*
+	scp processed/buildings/buildings_split.tar.gz la:~/webapps/laopenacres/data/ladata/
+
 
 process_parcels: prepare_processed
 	mkdir -p processed/parcels
@@ -58,6 +62,10 @@ clip_parcels_to_council_districts:
 	ogrinfo -ro -al -geom=NO -fields=YES -sql "SELECT DISTRICT FROM councildistricts" -q processed/councildistricts/councildistricts.shp | \
 		sed '/^\$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
 		xargs -I{} ogr2ogr -overwrite -clipsrc processed/councildistricts/split/council_district_{}.shp processed/parcels/split/council_district_{}.shp processed/parcels/parcels.shp
+
+push_parcels:
+	tar czvf processed/parcels/parcels_split.tar.gz processed/parcels/split/*
+	scp processed/parcels/parcels_split.tar.gz la:~/webapps/laopenacres/data/ladata/
 
 
 process_localroll: prepare_processed
