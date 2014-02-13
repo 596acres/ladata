@@ -81,3 +81,7 @@ process_protectedareas: prepare_processed
 	mkdir -p processed/protectedareas
 	ogr2ogr -simplify 0.2 -t_srs EPSG:4326 -overwrite processed/protectedareas/protectedareas.shp raw/protectedareas/CPAD_2013b_Units.shp
 	ogr2ogr -overwrite -clipsrc processed/cityboundary/cityboundary.shp processed/protectedareas/protectedareas_clipped.shp processed/protectedareas/protectedareas.shp
+
+push_protectedareas:
+	tar czvf processed/protectedareas/protectedareas_clipped.tar.gz processed/protectedareas/protectedareas_clipped.*
+	scp processed/protectedareas/protectedareas_clipped.tar.gz la:~/webapps/laopenacres/data/ladata/
