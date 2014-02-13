@@ -17,8 +17,15 @@ clean_data:
 
 download_data:
 	mkdir -p raw
+	download_buildings
 	# curl -L "<url>" -o raw/<module>.zip
 	# unzip raw/<module>.zip -d raw/<module>
+
+
+download_buildings:
+	mkdir -p raw/buildings
+	curl -L "http://egis3.lacounty.gov/dataportal/wp-content/uploads/2012/11/lariac_buildings_2008.zip" -o raw/buildings/buildings.zip
+	unzip raw/buildings/buildings.zip -d raw/buildings/
 
 
 process_council_districts: prepare_processed
