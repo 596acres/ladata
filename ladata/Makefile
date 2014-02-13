@@ -72,6 +72,10 @@ process_localroll: prepare_processed
 	mkdir -p processed/localroll
 	mdb-export raw/localroll/LocalRollA.mdb LocalRollA > processed/localroll/LocalRollA.csv
 
+push_localroll:
+	ssh la "mkdir -p ~/webapps/laopenacres/data/ladata/processed/localroll/"
+	scp processed/localroll/LocalRollA.csv la:~/webapps/laopenacres/data/ladata/processed/localroll/LocalRollA.csv
+
 
 process_protectedareas: prepare_processed
 	mkdir -p processed/protectedareas
