@@ -7,7 +7,7 @@ from .models import LocalRollAEntry
 
 
 def from_csv(progress=True, skip_existing=True, start=1, verbose=False,
-             **kwargs):
+             only_for_existing_parcels=True, **kwargs):
     """
     Load parcel data into the database from the processed csv.
     """
@@ -28,6 +28,12 @@ def from_csv(progress=True, skip_existing=True, start=1, verbose=False,
         if verbose:
             print ain
 
+        try:
+            parcel = Parcel.objects.get(ain=ain)
+        except (Parcel.MultipleObjectsReturned, Parcel.DoesNotExist):
+            if only_for_existing_parcels:
+                continue
+
         # Get or create LocalRollAEntry
         try:
             entry = LocalRollAEntry.objects.get(ain=ain)
@@ -39,14 +45,9 @@ def from_csv(progress=True, skip_existing=True, start=1, verbose=False,
             entry.save()
 
         # Link with Parcel if exists
-        try:
-            parcel = Parcel.objects.get(ain=ain)
+        if parcel:
             parcel.local_roll = entry
             parcel.save()
-        except Parcel.MultipleObjectsReturned:
-            pass
-        except Parcel.DoesNotExist:
-            pass
 
 
 def load(**kwargs):
