@@ -1,6 +1,13 @@
 all: download_data 
 	# process_*
 
+for_each_council_district = ogrinfo -ro -al -geom=NO -fields=YES -sql "SELECT DISTRICT FROM councildistricts" -q processed/councildistricts/councildistricts.shp | \
+		sed '/^\$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
+		xargs -I{} 
+
+test_fecd:
+	$(for_each_council_district) echo {}
+
 clean: clean_processed clean_raw
 
 prepare_processed:
@@ -34,9 +41,7 @@ process_council_districts: prepare_processed
 # Use ogrinfo to get all district numbers, pipe them to ogr2ogr and split the
 # shapefile using district numbers
 split_council_districts:
-	ogrinfo -ro -al -geom=NO -fields=YES -sql "SELECT DISTRICT FROM councildistricts" -q processed/councildistricts/councildistricts.shp | \
-		sed '/^$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
-		xargs -I{} ogr2ogr -overwrite -where "DISTRICT = '{}'" processed/councildistricts/split processed/councildistricts councildistricts -nln council_district_{}
+	$(for_each_council_district) ogr2ogr -overwrite -where "DISTRICT = '{}'" processed/councildistricts/split processed/councildistricts councildistricts -nln council_district_{}
 
 
 process_buildings: prepare_processed
@@ -44,18 +49,14 @@ process_buildings: prepare_processed
 
 clip_buildings_to_council_districts:
 	mkdir -p processed/buildings/split
-	ogrinfo -ro -al -geom=NO -fields=YES -sql "SELECT DISTRICT FROM councildistricts" -q processed/councildistricts/councildistricts.shp | \
-		sed '/^\$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
-		xargs -I{} ogr2ogr -overwrite -clipsrc processed/councildistricts/split/council_district_{}.shp processed/buildings/split/council_district_{}.shp processed/buildings/buildings.shp
+	$(for_each_council_district) ogr2ogr -overwrite -clipsrc processed/councildistricts/split/council_district_{}.shp processed/buildings/split/council_district_{}.shp processed/buildings/buildings.shp
 
 push_buildings:
 	tar czvf processed/buildings/buildings_split.tar.gz processed/buildings/split/*
 	scp processed/buildings/buildings_split.tar.gz la:~/webapps/laopenacres/data/ladata/
 
 load_buildings:
-	ogrinfo -ro -al -geom=NO -fields=YES -sql "SELECT DISTRICT FROM councildistricts" -q processed/councildistricts/councildistricts.shp | \
-		sed '/^\$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
-		xargs -I{} django-admin.py loadladata buildings --council_district={}
+	$(for_each_council_district) django-admin.py loadladata buildings --council_district={}
 
 
 process_parcels: prepare_processed
@@ -64,18 +65,14 @@ process_parcels: prepare_processed
 
 clip_parcels_to_council_districts:
 	mkdir -p processed/parcels/split
-	ogrinfo -ro -al -geom=NO -fields=YES -sql "SELECT DISTRICT FROM councildistricts" -q processed/councildistricts/councildistricts.shp | \
-		sed '/^\$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
-		xargs -I{} ogr2ogr -overwrite -clipsrc processed/councildistricts/split/council_district_{}.shp processed/parcels/split/council_district_{}.shp processed/parcels/parcels.shp
+	$(for_each_council_district) ogr2ogr -overwrite -clipsrc processed/councildistricts/split/council_district_{}.shp processed/parcels/split/council_district_{}.shp processed/parcels/parcels.shp
 
 push_parcels:
 	tar czvf processed/parcels/parcels_split.tar.gz processed/parcels/split/*
 	scp processed/parcels/parcels_split.tar.gz la:~/webapps/laopenacres/data/ladata/
 
 load_parcels:
-	ogrinfo -ro -al -geom=NO -fields=YES -sql "SELECT DISTRICT FROM councildistricts" -q processed/councildistricts/councildistricts.shp | \
-		sed '/^\$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
-		xargs -I{} django-admin.py loadladata parcels --council_district={}
+	$(for_each_council_district) django-admin.py loadladata parcels --council_district={}
 
 
 process_localroll: prepare_processed
