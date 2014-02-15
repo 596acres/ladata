@@ -63,6 +63,18 @@ class Parcel(models.Model):
         return self.local_roll.zip_code
     zip_code = property(_zip_code)
 
+    def _owner_name(self):
+        if not self.local_roll:
+            return None
+        return self.local_roll.owner_name
+    owner_name = property(_owner_name)
+
+    def _owner_type(self):
+        if not self.local_roll:
+            return None
+        return self.local_roll.owner_type
+    owner_type = property(_owner_type)
+
 
 # Auto-generated `LayerMapping` dictionary for Parcel model
 parcel_mapping = {

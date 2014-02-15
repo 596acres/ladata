@@ -357,3 +357,28 @@ class LocalRollAEntry(models.Model):
         except Exception:
             return None
     zip_code = property(_format_zip_code)
+
+    def _format_owner_name(self):
+        try:
+            name_components = (
+                self.first_owner_assee_name,
+                self.first_owner_name_overflow,
+                self.second_owner_assee_name,
+            )
+            return ' '.join([c for c in name_components if c])
+        except Exception:
+            pass
+        return None
+    owner_name = property(_format_owner_name)
+
+    def _guess_owner_type(self):
+        try:
+            owner_name = self.first_owner_assee_name.lower()
+            if (owner_name.startswith('l a city') or
+                owner_name.startswith('la city') or
+                owner_name == 'city of los angeles'):
+                return 'public'
+        except Exception:
+            pass
+        return 'private'
+    owner_type = property(_guess_owner_type)
