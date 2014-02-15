@@ -9,9 +9,12 @@ def get_processed_data_dir():
     LADATA_PROCESSED_DATA_DIR in your settings. Defaults to './processed/'.
     """
     try:
-        return settings.LADATA_PROCESSED_DATA_DIR
+        processed_data_dir = settings.LADATA_PROCESSED_DATA_DIR
     except AttributeError:
-        return os.path.join(os.path.dirname(__file__), 'processed')
+        pass
+    if not processed_data_dir:
+        processed_data_dir = os.path.join(os.path.dirname(__file__), 'processed')
+    return processed_data_dir
 
 
 def get_processed_data_file(name):
