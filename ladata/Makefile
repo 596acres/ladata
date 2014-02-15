@@ -1,3 +1,5 @@
+SHELL=/bin/bash
+
 all: download_data 
 	# process_*
 
@@ -52,6 +54,11 @@ push_buildings:
 	tar czvf processed/buildings/buildings_split.tar.gz processed/buildings/split/*
 	scp processed/buildings/buildings_split.tar.gz la:~/webapps/laopenacres/data/ladata/
 
+load_buildings:
+	ogrinfo -ro -al -geom=NO -fields=YES -sql "SELECT DISTRICT FROM councildistricts" -q processed/councildistricts/councildistricts.shp | \
+		sed '/^\$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
+		xargs -I{} django-admin.py loadladata buildings --council_district={}
+
 
 process_parcels: prepare_processed
 	mkdir -p processed/parcels
@@ -66,6 +73,11 @@ clip_parcels_to_council_districts:
 push_parcels:
 	tar czvf processed/parcels/parcels_split.tar.gz processed/parcels/split/*
 	scp processed/parcels/parcels_split.tar.gz la:~/webapps/laopenacres/data/ladata/
+
+load_parcels:
+	ogrinfo -ro -al -geom=NO -fields=YES -sql "SELECT DISTRICT FROM councildistricts" -q processed/councildistricts/councildistricts.shp | \
+		sed '/^\$$/d' | sed '/OGR/d' | sed '/Layer/d' | sed 's/\s*DISTRICT.*= //' | sort -n | \
+		xargs -I{} django-admin.py loadladata parcels --council_district={}
 
 
 process_localroll: prepare_processed
