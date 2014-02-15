@@ -1,5 +1,3 @@
-SHELL=/bin/bash
-
 all: download_data 
 	# process_*
 
