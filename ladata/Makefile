@@ -92,3 +92,9 @@ process_protectedareas: prepare_processed
 push_protectedareas:
 	tar czvf processed/protectedareas/protectedareas_clipped.tar.gz processed/protectedareas/protectedareas_clipped.*
 	scp processed/protectedareas/protectedareas_clipped.tar.gz la:~/webapps/laopenacres/data/ladata/
+
+
+push_communityplanareas:
+	tar czvf processed/communityplanareas/CPA.tar.gz processed/communityplanareas/CPA.*
+	ssh la "mkdir -p ~/webapps/laopenacres/data/ladata/processed/communityplanareas/"
+	scp processed/communityplanareas/CPA.tar.gz la:~/webapps/laopenacres/data/ladata/
