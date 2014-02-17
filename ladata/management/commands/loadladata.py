@@ -28,11 +28,14 @@ class Command(BaseCommand):
     )
 
     def handle(self, dataset_name, *args, **options):
+        kwargs = {}
         council_district = options.get('council_district', None)
+        if council_district:
+            kwargs['council_district'] = council_district
 
         try:
             load_module = import_module('ladata.%s.load' % self.datasets[dataset_name])
-            load_module.load(council_district=council_district)
+            load_module.load(**kwargs)
         except KeyError:
             traceback.print_exc()
             raise CommandError('Could not find dataset %s' % dataset_name)
