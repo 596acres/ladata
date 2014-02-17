@@ -43,6 +43,11 @@ process_council_districts: prepare_processed
 split_council_districts:
 	$(for_each_council_district) ogr2ogr -overwrite -where "DISTRICT = '{}'" processed/councildistricts/split processed/councildistricts councildistricts -nln council_district_{}
 
+push_council_districts:
+	tar czvf processed/councildistricts/councildistricts.tar.gz processed/councildistricts/councildistricts.*
+	ssh la "mkdir -p ~/webapps/laopenacres/data/ladata/processed/councildistricts/"
+	scp processed/councildistricts/councildistricts.tar.gz la:~/webapps/laopenacres/data/ladata/
+
 
 process_buildings: prepare_processed
 	ogr2ogr -simplify 0.2 -t_srs EPSG:4326 -overwrite processed/buildings/buildings.shp raw/buildings/lariac_buildings_2008.shp
