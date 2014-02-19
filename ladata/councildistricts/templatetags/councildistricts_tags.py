@@ -8,7 +8,11 @@ from ..models import CouncilDistrict
 class GetCouncilDistricts(BaseAllBoundariesTag):
 
     def get_value(self, context):
-        return CouncilDistrict.objects.all().order_by('label')
+        return CouncilDistrict.objects.extra(
+            select={
+                'labelinteger': 'CAST(label AS INTEGER)',
+            }
+        ).order_by('labelinteger')
 
 
 register = template.Library()
