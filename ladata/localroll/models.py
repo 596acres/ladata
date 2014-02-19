@@ -1,5 +1,7 @@
 from django.db import models
 
+from .utils import vacant_use_codes
+
 
 class LocalRollAEntry(models.Model):
     """
@@ -382,3 +384,7 @@ class LocalRollAEntry(models.Model):
             pass
         return 'private'
     owner_type = property(_guess_owner_type)
+
+    def _is_coded_vacant(self):
+        return self.use_cde in vacant_use_codes
+    is_coded_vacant = property(_is_coded_vacant)

@@ -75,6 +75,12 @@ class Parcel(models.Model):
         return self.local_roll.owner_type
     owner_type = property(_owner_type)
 
+    def _is_coded_vacant(self):
+        if not self.local_roll:
+            return None
+        return self.local_roll.is_coded_vacant
+    is_coded_vacant = property(_is_coded_vacant)
+
 
 # Auto-generated `LayerMapping` dictionary for Parcel model
 parcel_mapping = {
