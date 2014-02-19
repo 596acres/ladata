@@ -23,6 +23,7 @@ Where's the data coming from?
   (2012)](http://egis3.lacounty.gov/dataportal/2012/08/07/la-city-council-districts-2012/)
 * **local roll**: [LA County
   Assessor](http://assessor.lacounty.gov/extranet/outsidesales/gisdata.aspx)
+* **neighborhood councils**: Unclear
 * **parcels**: [LA County
   Assessor](http://assessor.lacounty.gov/extranet/outsidesales/gisdata.aspx)
 * **protected areas**: California's Protected Areas Database: [unit
