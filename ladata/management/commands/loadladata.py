@@ -15,6 +15,7 @@ class Command(BaseCommand):
         'communityplanareas': 'communityplanareas',
         'councildistricts': 'councildistricts',
         'localroll': 'localroll',
+        'neighborhoodcouncils': 'neighborhoodcouncils',
         'parcels': 'parcels',
         'protectedareas': 'protectedareas',
     }

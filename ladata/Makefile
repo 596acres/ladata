@@ -35,6 +35,16 @@ download_buildings:
 	unzip raw/buildings/buildings.zip -d raw/buildings/
 
 
+push_neighborhood_councils:
+	tar czvf processed/neighborhoodcouncils/neighborhoodcouncils.tar.gz processed/neighborhoodcouncils/neighborhoodcouncils.*
+	ssh la "mkdir -p ~/webapps/laopenacres/data/ladata/processed/neighborhoodcouncils/"
+	scp processed/neighborhoodcouncils/neighborhoodcouncils.tar.gz la:~/webapps/laopenacres/data/ladata/
+
+process_neighborhood_councils: prepare_processed
+	mkdir -p processed/neighborhoodcouncils
+	ogr2ogr -simplify 0.2 -t_srs EPSG:4326 -overwrite processed/neighborhoodcouncils/neighborhoodcouncils.shp raw/neighborhoodcouncils/nc_id52.shp
+
+
 process_council_districts: prepare_processed
 	ogr2ogr -simplify 0.2 -t_srs EPSG:4326 -overwrite processed/councildistricts/councildistricts.shp raw/councildistricts/LA_City_Council_Districts_2012.shp
 
