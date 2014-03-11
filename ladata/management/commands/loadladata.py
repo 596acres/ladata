@@ -9,17 +9,6 @@ class Command(BaseCommand):
     args = 'dataset_name'
     help = 'Loads LA data (addresses, buildings, parcels, ...)'
 
-    datasets = {
-        # name -> module
-        'buildings': 'buildings',
-        'communityplanareas': 'communityplanareas',
-        'councildistricts': 'councildistricts',
-        'localroll': 'localroll',
-        'neighborhoodcouncils': 'neighborhoodcouncils',
-        'parcels': 'parcels',
-        'protectedareas': 'protectedareas',
-    }
-
     option_list = BaseCommand.option_list + (
         make_option('--council_district',
             action='store',
@@ -35,7 +24,7 @@ class Command(BaseCommand):
             kwargs['council_district'] = council_district
 
         try:
-            load_module = import_module('ladata.%s.load' % self.datasets[dataset_name])
+            load_module = import_module('ladata.%s.load' % dataset_name)
             load_module.load(**kwargs)
         except KeyError:
             traceback.print_exc()
