@@ -29,3 +29,4 @@ Where's the data coming from?
   Assessor](http://assessor.lacounty.gov/extranet/outsidesales/gisdata.aspx)
 * **protected areas**: California's Protected Areas Database: [unit
   data](http://www.calands.org/data)
+* **transmission line easments**: TODO
