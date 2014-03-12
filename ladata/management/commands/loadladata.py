@@ -15,6 +15,12 @@ class Command(BaseCommand):
             type='string',
             dest='council_district',
         ),
+
+        make_option('--filename',
+            action='store',
+            type='string',
+            dest='filename',
+        ),
     )
 
     def handle(self, dataset_name, *args, **options):
@@ -22,6 +28,7 @@ class Command(BaseCommand):
         council_district = options.get('council_district', None)
         if council_district:
             kwargs['council_district'] = council_district
+        kwargs['filename'] = options.get('filename', None)
 
         try:
             load_module = import_module('ladata.%s.load' % dataset_name)

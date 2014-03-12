@@ -6,13 +6,14 @@ from ..parcels.models import Parcel
 from .models import WeedAbatement, weedabatement_mapping
 
 
-def from_csv(progress=True, skip_existing=True, verbose=False,
+def from_csv(filename=None, progress=True, skip_existing=True, verbose=False,
              only_for_existing_parcels=True, **kwargs):
     """
     Load parcel data into the database from the processed csv.
     """
-    input_file = get_processed_data_file(os.path.join('weedabatements',
-                                                      'weedabatements.csv'))
+    if not filename:
+        filename = get_processed_data_file(os.path.join('weedabatements',
+                                                        'weedabatements.csv'))
 
     def header_to_field(header):
         return weedabatement_mapping.get(header, None)
@@ -27,7 +28,7 @@ def from_csv(progress=True, skip_existing=True, verbose=False,
         return kwargs
 
     count = 0
-    for row in csv.DictReader(open(input_file, 'r')):
+    for row in csv.DictReader(open(filename, 'r')):
         ain = row['AIN']
         count += 1
         if count % 500 == 0 and progress:
