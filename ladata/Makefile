@@ -113,3 +113,8 @@ push_communityplanareas:
 	tar czvf processed/communityplanareas/CPA.tar.gz processed/communityplanareas/CPA.*
 	ssh la "mkdir -p ~/webapps/laopenacres/data/ladata/processed/communityplanareas/"
 	scp processed/communityplanareas/CPA.tar.gz la:~/webapps/laopenacres/data/ladata/
+
+
+push_transmissionlines:
+	ssh la "mkdir -p ~/webapps/laopenacres/data/ladata/processed/transmissionlines/"
+	scp processed/transmissionlines/transmissionlines.csv la:~/webapps/laopenacres/data/ladata/processed/transmissionlines/
