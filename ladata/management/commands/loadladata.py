@@ -28,7 +28,9 @@ class Command(BaseCommand):
         council_district = options.get('council_district', None)
         if council_district:
             kwargs['council_district'] = council_district
-        kwargs['filename'] = options.get('filename', None)
+        filename = options.get('filename', None)
+        if filename:
+            kwargs['filename'] = filename
 
         try:
             load_module = import_module('ladata.%s.load' % dataset_name)
