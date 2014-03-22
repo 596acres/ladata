@@ -118,3 +118,12 @@ push_communityplanareas:
 push_transmissionlines:
 	ssh la "mkdir -p ~/webapps/laopenacres/data/ladata/processed/transmissionlines/"
 	scp processed/transmissionlines/transmissionlines.csv la:~/webapps/laopenacres/data/ladata/processed/transmissionlines/
+
+
+process_zoning: prepare_processed
+	mkdir -p processed/zoning
+	ogr2ogr -simplify 0.2 -t_srs EPSG:4326 -overwrite processed/zoning/zoning.shp raw/zoning/Zoning.shp
+
+push_zoning:
+	ssh la "mkdir -p ~/webapps/laopenacres/data/ladata/processed/zoning/"
+	scp processed/zoning/zoning.* la:~/webapps/laopenacres/data/ladata/processed/zoning/
