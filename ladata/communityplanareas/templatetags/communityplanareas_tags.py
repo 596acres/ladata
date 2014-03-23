@@ -1,8 +1,16 @@
 from django import template
 
-from inplace.boundaries.templatetags.boundaries_tags import BaseAllBoundariesTag
+from inplace.boundaries.templatetags.boundaries_tags import (
+    BaseAllBoundariesTag,
+    BaseGetBoundaryTag)
 
 from ..models import CommunityPlanArea
+
+
+class GetCommunityPlanArea(BaseGetBoundaryTag):
+
+    def get_boundary_model(self):
+        return CommunityPlanArea
 
 
 class GetCommunityPlanAreas(BaseAllBoundariesTag):
@@ -12,4 +20,5 @@ class GetCommunityPlanAreas(BaseAllBoundariesTag):
 
 
 register = template.Library()
+register.tag(GetCommunityPlanArea)
 register.tag(GetCommunityPlanAreas)
