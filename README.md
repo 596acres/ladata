@@ -25,6 +25,8 @@ Where's the data coming from?
   Assessor](http://assessor.lacounty.gov/extranet/outsidesales/gisdata.aspx)
 * **neighborhood councils**: City of LA via
   [arcgis.com](http://www.arcgis.com/home/item.html?id=7da35609c7604967bc2e99edf6b0100e)
+* **sidelots**: [Department of General Services](http://gsd.lacity.org/), via
+  email
 * **parcels**: [LA County
   Assessor](http://assessor.lacounty.gov/extranet/outsidesales/gisdata.aspx)
 * **protected areas**: California's Protected Areas Database: [unit
