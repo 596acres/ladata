@@ -54,6 +54,9 @@ class NeighborhoodCouncil(BaseBoundary):
     newsqmile = models.FloatField(null=True, blank=True)
     objects = models.GeoManager()
 
+    def fix_label_capitalization(self):
+        return self.label.title().replace('Nc', 'NC').replace('Ndc', 'NDC')
+
 
 # Auto-generated `LayerMapping` dictionary for NeighborhoodCouncil model
 neighborhoodcouncil_mapping = {
