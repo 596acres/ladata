@@ -27,7 +27,7 @@ class GeoJSONPolygonView(GeoJSONListView):
             bbox = Polygon.from_bbox(self.request.GET['bbox'].split(','))
             return super(GeoJSONPolygonView, self).get_queryset().filter(
                 geom__intersects=bbox,
-            ).select_related('localroll').geojson(precision=6)
+            ).select_related('local_roll').geojson(precision=6)
         except KeyError:
             return Parcel.objects.none()
 
