@@ -355,7 +355,7 @@ class LocalRollAEntry(models.Model):
 
     def _format_zip_code(self):
         try:
-            return self.sa_zip_cde[:5]
+            return str(self.sa_zip_cde)[:5]
         except Exception:
             return None
     zip_code = property(_format_zip_code)
