@@ -36,6 +36,14 @@ class Parcel(models.Model):
                                    blank=True)
     objects = models.GeoManager()
 
+    def __unicode__(self):
+        s = '%d' % self.pk
+        try:
+            s = self.street_address
+        except Exception:
+            pass
+        return s
+
     def _street_address(self):
         if not self.local_roll:
             return None
